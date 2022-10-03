@@ -17,11 +17,39 @@ def main():
     login()
 
 
+def login():
+    print("[1] Teacher ")
+    print("[2] Student ")
+
+    role = input("Pilih Rule : ")
+    if role == "1":
+        print("Teacher")
+        name = input("Username : ")
+        for teacher_id, teacher_data in teacher.items():
+            if teacher_data["name"] == name:
+                teacher_page()
+            else:
+                print("Usernmae Tidak Ditemukan")
+                break
+        login()
+
+    elif role == "2":
+        name = input("Username : ")
+        for student_id, student_data in student.items():
+            if student_data["name"] == name:
+                student_page(student_id)
+            else:
+                print("Username Tidak Ditemukan")
+                break
+        login()
+
+
 def student_page(_id):
     print("[1] Nilai Akhir Anda")
     input("Pilih Menu : ")
 
     print("Nilai akhir : " + str((student[_id]["UAS"] + student[_id]["UTS"]) / 2))
+    login()
 
 
 def teacher_page():
@@ -35,8 +63,9 @@ def teacher_page():
         uas = input("Masukkan Nilai UAS : ")
         uts = input("Masukkan Nilai UTS : ")
 
-        student[len(student) + 1] = {"name": nama, "UAS": uas, "UTS": uts}
+        student[len(student) + 1] = {"name": nama, "UAS": int(uas), "UTS": int(uts)}
         show_data_student()
+        login()
 
     elif menu == "2":
         print("[1] Edit Nilai UAS")
@@ -51,6 +80,7 @@ def teacher_page():
             nilai_uas_edit = input("Masukkan Nilai UAS : ")
             student[int(id_to_edit)]["UAS"] = int(nilai_uas_edit)
             show_data_student()
+            login()
 
         elif edit == "2":
             show_data_student()
@@ -59,25 +89,12 @@ def teacher_page():
             nilai_uts_edit = input("Masukkan Nilai UTS : ")
             student[int(id_to_edit)]["UAS"] = int(nilai_uts_edit)
             show_data_student()
+            login()
+        else:
+            print("Pilihan tidak ada")
 
-
-def login():
-    print("[1] Teacher ")
-    print("[2] Student ")
-
-    role = input("Pilih Rule : ")
-    if role == "1":
-        print("Teacher")
-        name = input("Username : ")
-        for teacher_id, teacher_data in teacher.items():
-            if teacher_data["name"] == name:
-                teacher_page()
-
-    elif role == "2":
-        name = input("Username : ")
-        for student_id, student_data in student.items():
-            if student_data["name"] == name:
-                student_page(student_id)
+    else:
+        print("Pilihan tidak ada")
 
 
 def show_data_student():
@@ -86,11 +103,6 @@ def show_data_student():
 
         for key in student_data:
             print(key, ':', student_data[key])
-
-
-def show_test():
-    for student_id, student_data in student.items():
-        print(student_data["name"])
 
 
 main()
