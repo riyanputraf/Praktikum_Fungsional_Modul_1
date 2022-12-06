@@ -1,5 +1,4 @@
 from functools import reduce
-import numpy as np
 
 
 # fungsi transpose dengan inner function wrapper untuk menangkap inputan yang berupa
@@ -19,35 +18,48 @@ def transpose(function):
 # 7 8 9    m[2][0] m[2][1] m[2][2]
 @transpose
 def adjoin(matrix):
-    result = [[((matrix[1][1] * matrix[2][2]) - (matrix[1][2] * matrix[2][1])),
-               -((matrix[1][0] * matrix[2][2]) - (matrix[1][2] * matrix[2][0])),
-               +((matrix[1][0] * matrix[2][1]) - (matrix[1][1] * matrix[2][0]))],
-              [-((matrix[0][1] * matrix[2][2]) - (matrix[0][2] * matrix[2][1])),
-               +((matrix[0][0] * matrix[2][2]) - (matrix[0][2] * matrix[2][0])),
-               -((matrix[0][0] * matrix[2][1]) - (matrix[0][1] * matrix[2][0]))],
-              [+((matrix[0][1] * matrix[1][2]) - (matrix[0][2] * matrix[1][1])),
-               -((matrix[0][0] * matrix[1][2]) - (matrix[0][2] * matrix[1][0])),
-               +((matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0]))]]
+    try:
+        result = [[((matrix[1][1] * matrix[2][2]) - (matrix[1][2] * matrix[2][1])),
+                   -((matrix[1][0] * matrix[2][2]) - (matrix[1][2] * matrix[2][0])),
+                   +((matrix[1][0] * matrix[2][1]) - (matrix[1][1] * matrix[2][0]))],
+                  [-((matrix[0][1] * matrix[2][2]) - (matrix[0][2] * matrix[2][1])),
+                   +((matrix[0][0] * matrix[2][2]) - (matrix[0][2] * matrix[2][0])),
+                   -((matrix[0][0] * matrix[2][1]) - (matrix[0][1] * matrix[2][0]))],
+                  [+((matrix[0][1] * matrix[1][2]) - (matrix[0][2] * matrix[1][1])),
+                   -((matrix[0][0] * matrix[1][2]) - (matrix[0][2] * matrix[1][0])),
+                   +((matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0]))]]
+    except Exception as err:
+        print(err)
+
     return result
 
 
 def det(matrix):
-    # fungsi untuk menghitung determinan matrix 3x3
-    result = (matrix[0][0] * (matrix[1][1] * matrix[2][2] - matrix[2][1] * matrix[1][2])
-              - matrix[1][0] * (matrix[1][0] * matrix[2][2] - matrix[2][1] * matrix[0][2])
-              + matrix[2][0] * (matrix[0][1] * matrix[1][2] - matrix[1][1] * matrix[0][2]))
+    try:
+        # fungsi untuk menghitung determinan matrix 3x3
+        result = (matrix[0][0] * (matrix[1][1] * matrix[2][2] - matrix[2][1] * matrix[1][2])
+                  - matrix[1][0] * (matrix[1][0] * matrix[2][2] - matrix[2][1] * matrix[0][2])
+                  + matrix[2][0] * (matrix[0][1] * matrix[1][2] - matrix[1][1] * matrix[0][2]))
+    except Exception as err:
+        print(err)
+
     return result
 
 
 def determinan(matrix):
-    det = (matrix[0][0] * matrix[1][1] * matrix[2][2]
-           + matrix[0][1] * matrix[1][2] * matrix[2][0]
-           + matrix[0][2] * matrix[1][0] * matrix[2][1]
-           - matrix[2][0] * matrix[1][1] * matrix[0][2]
-           - matrix[2][1] * matrix[1][2] * matrix[0][0]
-           - matrix[2][2] * matrix[1][0] * matrix[0][1])
+    try:
+        deter = (matrix[0][0] * matrix[1][1] * matrix[2][2]
+                 + matrix[0][1] * matrix[1][2] * matrix[2][0]
+                 + matrix[0][2] * matrix[1][0] * matrix[2][1]
+                 - matrix[2][0] * matrix[1][1] * matrix[0][2]
+                 - matrix[2][1] * matrix[1][2] * matrix[0][0]
+                 - matrix[2][2] * matrix[1][0] * matrix[0][1])
+    except Exception as err:
+        print(err)
 
-    return det
+
+
+    return deter
 
 
 # fungsi untuk mencari inverse dari matrix yang berupa nested list
@@ -67,7 +79,7 @@ def perkalianMatrix(function, matrix):
               [0, 0, 0]]
     for row in range(len(function)):
         for col in range(len(function[0])):
-          result[row][col] = function[row][col] * matrix[col]
+            result[row][col] = function[row][col] * matrix[col]
         print(result[row])
         result[row] = reduce(lambda x, y: x + y, result[row])
         print("ini result tambah " + str(result[row]))

@@ -2,12 +2,12 @@ import random as rand
 
 
 def spawn_location():
-    row = lambda: rand.randint(0, 7-1)
-    col = lambda: rand.randint(0, 7-1)
+    row = lambda: rand.randint(0, 7 - 1)
+    col = lambda: rand.randint(0, 7 - 1)
 
     spawn_a = [row(), col()]
     change = True
-    while(change):
+    while (change):
         spawn_o = [row(), col()]
         if spawn_o is not spawn_a:
             change = False
@@ -15,7 +15,8 @@ def spawn_location():
     print("ini psp" + str(spawn_a))
     print("ini psp" + str(spawn_o))
     print("ini return" + str(spawn_a + spawn_o))
-    return spawn_a+spawn_o
+    return spawn_a + spawn_o
+
 
 def pawn_start(function):
     def wrapper():
@@ -25,11 +26,14 @@ def pawn_start(function):
         board[spawn[0]][spawn[1]] = 'A'
         board[spawn[2]][spawn[3]] = 'O'
         return board
+
     return wrapper
+
 
 @pawn_start
 def board_size():
     return [['-' for i in range(7)] for i in range(7)]
+
 
 def check_location(board, subject):
     for i in range(len(board)):
@@ -37,6 +41,7 @@ def check_location(board, subject):
             if board[i][j] == subject:
                 return [i, j]
     return 'not found'
+
 
 def brakes(function):
     def wrapper(direction, board):
@@ -56,7 +61,9 @@ def brakes(function):
             print(err)
             board[present_location_a[0]][present_location_a[1]] = 'A'
         return board
+
     return wrapper
+
 
 @brakes
 def move(direction, board):
@@ -65,13 +72,13 @@ def move(direction, board):
     column_b = location_A[1]
 
     if direction == 'up':
-        return [row_a-1, column_b]
+        return [row_a - 1, column_b]
     elif direction == 'down':
-        return [row_a+1, column_b]
+        return [row_a + 1, column_b]
     elif direction == 'right':
-        return [row_a, column_b+1]
+        return [row_a, column_b + 1]
     elif direction == 'left':
-        return [row_a, column_b-1]
+        return [row_a, column_b - 1]
 
 
 def run():
@@ -79,7 +86,6 @@ def run():
 
     board = board_size()
     location_o = check_location(board, 'O')
-
 
     while not out:
 
@@ -119,5 +125,6 @@ def run():
         if location_ab == location_o:
             print('Finish')
             out = True
+
 
 run()
