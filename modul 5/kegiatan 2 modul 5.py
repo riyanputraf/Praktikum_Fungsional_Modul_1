@@ -5,25 +5,25 @@ def spawn_location():
     row = lambda: rand.randint(0, 7-1)
     col = lambda: rand.randint(0, 7-1)
 
-    PSP = [row(), col()]
+    spawn_a = [row(), col()]
     change = True
     while(change):
-        GSP = [row(), col()]
-        if GSP is not PSP:
+        spawn_o = [row(), col()]
+        if spawn_o is not spawn_a:
             change = False
 
-    print("ini psp" + str(PSP))
-    print("ini psp" + str(GSP))
-    print("ini return" + str(PSP + GSP))
-    return PSP+GSP
+    print("ini psp" + str(spawn_a))
+    print("ini psp" + str(spawn_o))
+    print("ini return" + str(spawn_a + spawn_o))
+    return spawn_a+spawn_o
 
 def pawn_start(function):
     def wrapper():
         board = function()
         print("ini board" + str(board))
-        PG = spawn_location()
-        board[PG[0]][PG[1]] = 'A'
-        board[PG[2]][PG[3]] = 'O'
+        spawn = spawn_location()
+        board[spawn[0]][spawn[1]] = 'A'
+        board[spawn[2]][spawn[3]] = 'O'
         return board
     return wrapper
 
