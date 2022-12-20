@@ -56,9 +56,6 @@ def determinan(matrix):
                  - matrix[2][2] * matrix[1][0] * matrix[0][1])
     except Exception as err:
         print(err)
-
-
-
     return deter
 
 
